@@ -1,0 +1,42 @@
+<%- include('../../partials/header') %>
+<%- include('../../partials/navigation') %>
+
+<main class="container">
+  <h1>Modifier un livre</h1>
+
+  <form action="/livres/<%= livre.id %>/modifier" method="POST" class="form-card">
+    <label>Titre</label>
+    <input type="text" name="titre" value="<%= livre.titre %>" required>
+
+    <label>Auteur</label>
+    <select name="auteur_id" required>
+      <% auteurs.forEach(auteur => { %>
+        <option value="<%= auteur.id %>" <%= auteur.id === livre.auteur_id ? 'selected' : '' %>>
+          <%= auteur.prenom %> <%= auteur.nom %>
+        </option>
+      <% }) %>
+    </select>
+
+    <label>Année de publication</label>
+    <input type="number" name="annee_publication" value="<%= livre.annee_publication || '' %>">
+
+    <label>Genre</label>
+    <input type="text" name="genre" value="<%= livre.genre || '' %>">
+
+    <label>ISBN</label>
+    <input type="text" name="isbn" value="<%= livre.isbn || '' %>">
+
+    <label>Résumé</label>
+    <textarea name="resume" rows="5"><%= livre.resume || '' %></textarea>
+
+    <label class="checkbox">
+      <input type="checkbox" name="disponible" <%= livre.disponible ? 'checked' : '' %>>
+      Disponible
+    </label>
+
+    <button type="submit" class="btn">Modifier</button>
+    <a href="/livres" class="btn secondary">Annuler</a>
+  </form>
+</main>
+
+<%- include('../../partials/footer') %>

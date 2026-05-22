@@ -1,0 +1,32 @@
+<%- include('../../partials/header') %>
+<%- include('../../partials/navigation') %>
+
+<main class="container">
+  <div class="card">
+    <h1><%= auteur.prenom %> <%= auteur.nom %></h1>
+
+    <p><strong>Nationalité :</strong> <%= auteur.nationalite || '-' %></p>
+    <p><strong>Date de naissance :</strong> <%= auteur.date_naissance ? new Date(auteur.date_naissance).toLocaleDateString() : '-' %></p>
+    <p><strong>Biographie :</strong> <%= auteur.biographie || '-' %></p>
+
+    <a href="/auteurs/<%= auteur.id %>/modifier" class="btn">Modifier</a>
+    <a href="/auteurs" class="btn secondary">Retour</a>
+  </div>
+
+  <h2>Livres de cet auteur</h2>
+
+  <% if (livres.length === 0) { %>
+    <p>Aucun livre pour cet auteur.</p>
+  <% } else { %>
+    <ul class="list">
+      <% livres.forEach(livre => { %>
+        <li>
+          <a href="/livres/<%= livre.id %>"><%= livre.titre %></a>
+          - <%= livre.genre || '-' %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+</main>
+
+<%- include('../../partials/footer') %>

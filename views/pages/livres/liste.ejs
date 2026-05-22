@@ -1,0 +1,52 @@
+<%- include('../../partials/header') %>
+<%- include('../../partials/navigation') %>
+
+<main class="container">
+  <div class="top">
+    <h1>Liste des livres</h1>
+    <a href="/livres/ajouter" class="btn">Ajouter un livre</a>
+  </div>
+
+  <% if (searchTerm) { %>
+    <p>Résultat de recherche pour : <strong><%= searchTerm %></strong></p>
+  <% } %>
+
+  <% if (livres.length === 0) { %>
+    <p>Aucun livre trouvé.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Titre</th>
+          <th>Auteur</th>
+          <th>Genre</th>
+          <th>Disponible</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% livres.forEach(livre => { %>
+          <tr>
+            <td><%= livre.id %></td>
+            <td><%= livre.titre %></td>
+            <td><%= livre.auteur_prenom %> <%= livre.auteur_nom %></td>
+            <td><%= livre.genre || '-' %></td>
+            <td><%= livre.disponible ? 'Oui' : 'Non' %></td>
+            <td>
+              <a href="/livres/<%= livre.id %>" class="btn small">Détails</a>
+              <a href="/livres/<%= livre.id %>/modifier" class="btn small secondary">Modifier</a>
+
+              <form action="/livres/<%= livre.id %>/supprimer" method="POST" class="inline">
+                <button onclick="return confirm('Supprimer ce livre ?')" class="btn small danger">Supprimer</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</main>
+
+<%- include('../../partials/footer') %>

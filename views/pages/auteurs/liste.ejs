@@ -1,0 +1,46 @@
+<%- include('../../partials/header') %>
+<%- include('../../partials/navigation') %>
+
+<main class="container">
+  <div class="top">
+    <h1>Liste des auteurs</h1>
+    <a href="/auteurs/ajouter" class="btn">Ajouter un auteur</a>
+  </div>
+
+  <% if (auteurs.length === 0) { %>
+    <p>Aucun auteur trouvé.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom complet</th>
+          <th>Nationalité</th>
+          <th>Date naissance</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% auteurs.forEach(auteur => { %>
+          <tr>
+            <td><%= auteur.id %></td>
+            <td><%= auteur.prenom %> <%= auteur.nom %></td>
+            <td><%= auteur.nationalite || '-' %></td>
+            <td><%= auteur.date_naissance ? new Date(auteur.date_naissance).toLocaleDateString() : '-' %></td>
+            <td>
+              <a href="/auteurs/<%= auteur.id %>" class="btn small">Détails</a>
+              <a href="/auteurs/<%= auteur.id %>/modifier" class="btn small secondary">Modifier</a>
+
+              <form action="/auteurs/<%= auteur.id %>/supprimer" method="POST" class="inline">
+                <button onclick="return confirm('Supprimer cet auteur ?')" class="btn small danger">Supprimer</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } %>
+</main>
+
+<%- include('../../partials/footer') %>

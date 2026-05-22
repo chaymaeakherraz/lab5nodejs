@@ -1,0 +1,28 @@
+<%- include('../../partials/header') %>
+<%- include('../../partials/navigation') %>
+
+<main class="container">
+  <h1>Ajouter un auteur</h1>
+
+  <form action="/auteurs/ajouter" method="POST" class="form-card">
+    <label>Nom</label>
+    <input type="text" name="nom" required>
+
+    <label>Prénom</label>
+    <input type="text" name="prenom" required>
+
+    <label>Date de naissance</label>
+    <input type="date" name="date_naissance">
+
+    <label>Nationalité</label>
+    <input type="text" name="nationalite">
+
+    <label>Biographie</label>
+    <textarea name="biographie" rows="5"></textarea>
+
+    <button type="submit" class="btn">Ajouter</button>
+    <a href="/auteurs" class="btn secondary">Annuler</a>
+  </form>
+</main>
+
+<%- include('../../partials/footer') %>
